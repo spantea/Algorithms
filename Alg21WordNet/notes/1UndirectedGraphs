@@ -1,0 +1,53 @@
+Graph. Set of vertices connected pairwise by edges.
+
+Some graph-processing problems
+----------------------------------------------------
+Path. Is there a path between s and t ?
+Shortest path. What is the shortest path between s and t ?
+Cycle. Is there a cycle in the graph?
+Euler tour. Is there a cycle that uses each edge exactly once? 
+Hamilton tour. Is there a cycle that uses each vertex exactly once.
+Connectivity. Is there a way to connect all of the vertices?
+MST. What is the best way to connect all of the vertices? 
+Biconnectivity. Is there a vertex whose removal disconnects the graph?
+Planarity. Can you draw the graph in the plane with no crossing edges Graph isomorphism. Do two adjacency lists represent the same graph?
+Challenge. Which of these problems are easy? difficult? intractable?
+
+
+Depth First Search
+------------------------------------------------------
+//itterative
+void dfs(Graph g, int s) { 
+	Stack<Integer> stck = new Stack<Integer>();
+	stck.add(s);
+	
+	while (!stck.isEmpty()) {
+		int v = stck.pop;
+		visited[v] = true;
+		for (int w : g.adj(v)) {
+			if (!visited[w]) {
+				stck.push(w);
+				edge[w] = v;
+			}
+		}
+	}
+}
+
+//recursive
+void dfs(Graph g, int v) {
+	marked[v] = true;
+	for (int w: g.adj(v)) {
+		if (!marked(w)) {
+			dfs(g,w);
+			edge[w] = v;
+		}
+	}
+}
+
+BFS
+----------------------------------------------------
+Put s onto a FIFO queue, and mark s as visited.
+Repeat until the queue is empty:
+ - remove the least recently added vertex v
+ - add each of v's unvisited neighbors to the queue,
+ - and mark them as visited.
